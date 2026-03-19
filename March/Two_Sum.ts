@@ -27,10 +27,10 @@
 const nums = [2, 7, 11, 15]
 const target = 9
 
-const nums2 = [3,2,4]
+const nums2 = [3, 2, 4]
 const target2 = 6
 
-const nums3 = [3,3]
+const nums3 = [3, 3]
 const target3 = 6
 
 //! Approach 1: Brute Force
@@ -59,7 +59,7 @@ console.log(`Time total execution: ${endTime - startTime} milliseconds`)
 
 function twoSum2(nums: number[], target: number): number[] {
     const map: Map<number, number> = new Map()
-    for (let i = 0; i < nums.length; i++){
+    for (let i = 0; i < nums.length; i++) {
         // console.log("First pass: ", nums[i], "at index", i)
         map.set(nums[i], i)
     }
@@ -84,3 +84,28 @@ console.log(`Time total execution: ${endTIme2 - startTime2} milliseconds`)
 
 
 //! Approach 3: One-pass Hash Table
+
+//* Algorithm
+
+//* It turns out we can do it in one-pass. While we are iterating and inserting elements into the hash table, 
+//* we also look back to check if current element's complement already exists in the hash table. If it exists, 
+//* we have found a solution and return the indices immediately.
+
+function twoSum3(nums: number[], target: number): number[] {
+    const map: Map<number, number> = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement)!, i];
+        }
+        map.set(nums[i], i);
+    }
+    return [];
+}
+
+const startTime3 = performance.now()
+console.log(twoSum3(nums, target))
+console.log(twoSum3(nums2, target2))
+console.log(twoSum3(nums3, target3))
+const endTIme3 = performance.now()
+console.log(`Time total execution: ${endTIme3 - startTime3} milliseconds`)
