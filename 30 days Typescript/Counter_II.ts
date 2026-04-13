@@ -8,7 +8,6 @@
  
 
 //? Example 1:
-
 //? Input: init = 5, calls = ["increment","reset","decrement"]
 //? Output: [6,5,4]
 //? Explanation:
@@ -16,8 +15,8 @@
 //? counter.increment(); // 6
 //? counter.reset(); // 5
 //? counter.decrement(); // 4
-//? Example 2:
 
+//? Example 2:
 //? Input: init = 0, calls = ["increment","increment","decrement","reset","reset"]
 //? Output: [1,2,1,0,0]
 //? Explanation:
@@ -27,3 +26,40 @@
 //? counter.decrement(); // 1
 //? counter.reset(); // 0
 //? counter.reset(); // 0
+
+
+type Counter = {
+    increment: () => number,
+    decrement: () => number,
+    reset: () => number,
+}
+
+function createCounter(init: number = 0): Counter {
+    let count = init
+    const initialValue = init
+
+    return {
+        increment: () => {
+            count++
+            return count
+        },
+        decrement: () => {
+            count--
+            return count
+        },
+        reset: () => {
+            count = initialValue
+            return count
+        }
+    }
+};
+
+
+const counter01 = createCounter(5)
+console.log(counter01.increment())
+console.log(counter01.increment())
+console.log(counter01.increment())
+console.log(counter01.decrement());
+console.log(counter01.decrement());
+console.log(counter01.decrement());
+console.log(counter01.reset());
