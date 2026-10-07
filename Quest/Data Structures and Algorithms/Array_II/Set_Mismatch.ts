@@ -15,47 +15,61 @@
 //? Output: [1,2]
 
 function findErrorNums(nums: number[]): number[] {
-    nums.sort((a, b) => a - b) 
-    const correctArr = nums.map((e, i) => i + 1).sort((a, b) => a - b)
-    
-    for (const num in nums) {
-        if (nums[num] !== correctArr[num]){
-            return [nums[num], correctArr[num]]
-        }
+  const mapNums = new Map<number, number>();
+
+  for (const num of nums) {
+    mapNums.set(num, (mapNums.get(num) ?? 0) + 1);
+  }
+
+  let duplicate = 0;
+  let missing = 0;
+
+  for (let i = 1; i <= nums.length; i++) {
+    const count = mapNums.get(i);
+
+    if (count === 2) {
+      duplicate = i;
     }
 
-  return [];
+    if (count === undefined) {
+      missing = i;
+    }
+  }
+
+  return [duplicate, missing];
 }
 
-// function findErrorNums2(nums: number[]): number[] {
-//   const map = new Map<number, number>();
+function findErrorNums2(nums: number[]): number[] {
+  const map = new Map<number, number>();
 
-//    Contar cuántas veces aparece cada número
-//   for (const num of nums) {
-//     map.set(num, (map.get(num) ?? 0) + 1);
-//   }
+  for (const num of nums) {
+    map.set(num, (map.get(num) ?? 0) + 1);
+  }
 
-//   let duplicate = 0;
-//   let missing = 0;
+  let duplicate = 0;
+  let missing = 0;
 
-//   /Los números correctos deben ser 1 ... n
-//   for (let i = 1; i <= nums.length; i++) {
-//     const count = map.get(i);
+  for (let i = 1; i <= nums.length; i++) {
+    const count = map.get(i);
 
-//     if (count === 2) {
-//       duplicate = i;
-//     }
+    if (count === 2) {
+      duplicate = i;
+    }
 
-//     if (count === undefined) {
-//       missing = i;
-//     }
-//   }
+    if (count === undefined) {
+      missing = i;
+    }
+  }
 
-//   return [duplicate, missing];
-// }
+  return [duplicate, missing];
+}
 
 const nums1 = [1, 2, 2, 4];
 console.log(findErrorNums(nums1));
 
-const nums2 = [1,1]
-console.log(findErrorNums(nums2))
+const nums2 = [1, 1];
+console.log(findErrorNums(nums2));
+
+const nums3 = [3, 2, 2];
+console.log(findErrorNums(nums3));
+
