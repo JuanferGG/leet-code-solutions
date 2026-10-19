@@ -38,38 +38,35 @@
 //? Since the stack (from the bottom to the top) is equal to target, we stop the stack operations.
 //? The answers that read integer 3 from the stream are not accepted.
 
-
 function buildArray(target: number[], n: number): string[] {
-    const Push = "Push" 
-    const Pop = "Pop"
-    const moviment: string[] = []
-    const setTarget = new Set(target)
-    const secondTarget: number[] = []
-    
+  const Push = "Push";
+  const Pop = "Pop";
+  const moviment: string[] = [];
+  const setTarget = new Set(target);
+  const secondTarget: number[] = [];
 
-       for (let i = 1; i <= n; i++) {
-        if (setTarget.has(i)){
-            moviment.push(Push)
-            secondTarget.push(i)
-        } else {
-            moviment.push(Push)
-            moviment.push(Pop)
-        }
-        if(target.length === secondTarget.length) return moviment
-
+  for (let i = 1; i <= n; i++) {
+    if (setTarget.has(i)) {
+      moviment.push(Push);
+      secondTarget.push(i);
+    } else {
+      moviment.push(Push);
+      moviment.push(Pop);
     }
+    if (target.length === secondTarget.length) return moviment;
+  }
 
-    return moviment
-};
+  return moviment;
+}
 
-const target_1 = [1,3]
-const n_1 = 3
-console.log(buildArray(target_1, n_1))
+const target_1 = [1, 3];
+const n_1 = 3;
+console.log(buildArray(target_1, n_1));
 
-const target_2 = [1,2,3]
-const n_2 = 3
-console.log(buildArray(target_2, n_2))
+const target_2 = [1, 2, 3];
+const n_2 = 3;
+console.log(buildArray(target_2, n_2));
 
-const target_3 = [1, 2]
-const n_3 = 4
-console.log(buildArray(target_3, n_3))
+const target_3 = [1, 2];
+const n_3 = 4;
+console.log(buildArray(target_3, n_3));
