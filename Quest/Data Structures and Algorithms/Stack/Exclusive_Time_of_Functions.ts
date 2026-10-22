@@ -51,16 +51,23 @@ function exclusiveTime(n: number, logs: string[]): number[] {
   const result: number[] = new Array(n).fill(0);
   const pila: number[] = [];
   let prev = 0;
-  const logsMap = logs.map((log) => ({
-    id: Number(log.split(":")[0]),
-    event: log.split(":")[1],
-    timestamp: Number(log.split(":")[2]),
-  }));
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < logsMap.length; j++){
-      console.log(`id(${i} logMapId:${logsMap[j].id})`)
-      
+  for (const log of logs) {
+    const [idStr, event, timeStr] = log.split(":");
+    const id = Number(idStr);
+    const t = Number(timeStr);
+    const tope = pila[pila.length - 1];
+
+    if (event === "start") {
+      if (pila.length > 0) {
+        result[tope] += t - prev;
+      }
+      pila.push(id);
+      prev = t;
+    } else {
+      const fin = pila.pop() as number;
+      result[fin] += t - prev + 1;
+      prev = t + 1;
     }
   }
 
